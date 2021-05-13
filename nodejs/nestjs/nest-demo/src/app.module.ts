@@ -1,3 +1,5 @@
+import { APP_FILTER } from '@nestjs/core';
+import { HttpExceptionFilter } from './exception/http-exception.filter';
 import { Module, MiddlewareConsumer, RequestMethod } from '@nestjs/common';
 import { GlobalModule } from './global/global.module';
 import { SharedModule } from './shared/shared.module';
@@ -11,7 +13,13 @@ import { Logger2Middleware } from './middleware/logger2.middleware';
 @Module({
   imports: [GlobalModule, SharedModule, CatsModule],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    {
+      provide: APP_FILTER,
+      useClass: HttpExceptionFilter,
+    },
+    AppService,
+  ],
 })
 export class AppModule {
   configure(consumer: MiddlewareConsumer) {

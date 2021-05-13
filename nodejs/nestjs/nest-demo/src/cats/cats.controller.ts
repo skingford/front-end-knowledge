@@ -1,7 +1,7 @@
 /*
  * @Author: kingford
  * @Date: 2021-05-13 16:08:14
- * @LastEditTime: 2021-05-13 17:01:48
+ * @LastEditTime: 2021-05-13 17:39:42
  */
 import {
   Controller,
@@ -12,22 +12,39 @@ import {
   Put,
   Delete,
   Query,
+  HttpException,
+  HttpStatus,
+  UseFilters,
+  NotFoundException,
 } from '@nestjs/common';
 import { CreateCatDto, UpdateCatDto, ListAllEntities } from './dtos/cat.dto';
 import { CatsService } from './cats.service';
+import { ForbiddenException } from '../exception/forbidden.exception';
+import { HttpExceptionFilter } from '../exception/http-exception.filter';
 
 @Controller('cats')
+@UseFilters(new HttpExceptionFilter())
 export class CatsController {
   constructor(private catsService: CatsService) {}
 
   @Post()
+  //@UseFilters(new HttpExceptionFilter())
   create(@Body() createCatDto: CreateCatDto) {
     this.catsService.create(createCatDto);
   }
 
   @Get()
   findAll(@Query() query: ListAllEntities) {
-    return this.catsService.findAll();
+    // throw new HttpException(
+    //   {
+    //     status: HttpStatus.FORBIDDEN,
+    //     error: 'This is a custom message',
+    //   },
+    //   HttpStatus.FORBIDDEN,
+    // );
+    // throw new NotFoundException();
+    throw new ForbiddenException();
+    //return this.catsService.findAll();
   }
 
   @Get(':id')
