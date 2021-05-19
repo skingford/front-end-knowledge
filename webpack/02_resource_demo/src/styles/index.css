@@ -1,0 +1,10 @@
+@font-face {
+  font-family: "PingFangSC";
+  src: url("../assets/fonts/PingFangSC.ttf") format("opentype");
+}
+
+.hello {
+  font-family: "PingFangSC";
+  color: red;
+  background: url("../assets/download.png");
+}
