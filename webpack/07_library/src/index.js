@@ -1,27 +1,9 @@
 /*
  * @Author: kingford
  * @Date: 2021-05-18 17:41:16
- * @LastEditTime: 2021-05-18 17:41:18
+ * @LastEditTime: 2021-05-19 11:58:27
  */
-import _ from "lodash";
-import numRef from "./ref.json";
+import * as math from "./math";
+import * as string from "./string";
 
-export function numToWord(num) {
-  return _.reduce(
-    numRef,
-    (accum, ref) => {
-      return ref.num === num ? ref.word : accum;
-    },
-    ""
-  );
-}
-
-export function wordToNum(word) {
-  return _.reduce(
-    numRef,
-    (accum, ref) => {
-      return ref.word === word && word.toLowerCase() ? ref.num : accum;
-    },
-    -1
-  );
-}
+export default { math, string };

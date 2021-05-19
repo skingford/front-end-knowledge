@@ -1,7 +1,7 @@
 /*
  * @Author: kingford
  * @Date: 2021-05-18 17:41:42
- * @LastEditTime: 2021-05-18 17:47:47
+ * @LastEditTime: 2021-05-19 13:53:28
  */
 const path = require("path");
 
@@ -10,11 +10,23 @@ module.exports = {
   entry: "./src/index.js",
   output: {
     path: path.resolve(__dirname, "dist"),
-    filename: "webpack-numbers.js",
+    filename: "[name]-bundle.js",
     library: {
-      name: "webpackNumbers",
+      name: "library",
       type: "umd",
     },
+    clean: true,
+  },
+  externals: ["lodash"],
+  devtool: "source-map",
+  module: {
+    rules: [
+      {
+        test: /\.js$/,
+        loader: "babel-loader",
+        exclude: /node_modules/,
+      },
+    ],
   },
   externals: {
     lodash: {
